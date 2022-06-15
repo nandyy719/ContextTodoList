@@ -2,7 +2,6 @@ import React, { useEffect, useReducer } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './components/Home';
 import About from './components/About';
-import './App.css';
 import { todoReducer } from './TodoReducer';
 import { initialTodoState, TodoContext } from './TodoContext';
 import { fetchTodos } from './ServerFunctions';

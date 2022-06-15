@@ -1,8 +1,58 @@
 import React, { useContext, useState } from "react";
+import styled from "styled-components";
 import { addTodo } from "../ServerFunctions";
 import { TodoContext } from "../TodoContext";
 import { ActionType, NewTodo, Todo } from "../TodoState";
 
+const Form = styled.form`
+    //display: flex;
+    //flex-direction: column;
+    //height: 17vh;
+    //justify-content: space-between;
+   // align-items: center;
+    //margin-top: 2vh;
+    //margin-bottom: 4vh;
+    overflow: auto;
+`;
+
+const FormControl = styled.div`
+    //display: flex;
+    //flex-direction: column;
+    //width: 15vw;
+    //justify-content: space-between;
+    //align-items: center;
+    &#set-reminder {
+    //flex-direction: row;
+    //width: 8vw;
+    }
+`;
+const Label = styled.label`
+    font-weight: 600; 
+    margin-bottom: 1vh;
+    margin-top: 1vh;
+    font-size: 1em;
+    margin-right: 1vw;
+`
+const TextInput = styled.input.attrs({type: 'text'})`
+    width: 100%;
+    padding: 1vh 0.5vw;
+    font-size: 1em;
+`;
+const Submit = styled.input.attrs({
+        type: 'submit',
+        value: 'Add Todo'
+})`
+  background-color: #4278f5;
+  color: white;
+  border: none;
+  padding: 1vh 1.5vw;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  &:hover{
+      padding: 1.5vh 2vw;
+  }
+`;
 export default function AddTodo() {
      const {dispatch} = useContext(TodoContext);
      const [text, setText] = useState('');
@@ -27,25 +77,25 @@ export default function AddTodo() {
          setReminder(false);
      }
   return (
-      <form className= 'add-form' onSubmit={onSubmit}>
+      <Form onSubmit={onSubmit}>
           
-          <div className="form-control">
-              <label>Todo</label>
-              <input type= 'text' placeholder= 'Add Todo' value = {text} onChange= {(e) => setText(e.target.value)} />
-          </div>
+          <FormControl>
+              <Label>Todo</Label>
+              <TextInput placeholder= 'Add Todo' value = {text} onChange= {(e: any) => setText(e.target.value)} />
+          </FormControl>
 
-          <div className="form-control">
-              <label>Day and Time</label>
-              <input type= 'text' placeholder= 'Add Day and Time' value = {day} onChange= {(e) => setDay(e.target.value)} />
-          </div>
+          <FormControl>
+              <Label>Day and Time</Label>
+              <TextInput placeholder= 'Add Day and Time' value = {day} onChange= {(e: any) => setDay(e.target.value)} />
+          </FormControl>
 
-          <div className="form-control">
-              <label>Set Reminder</label>
+          <FormControl id= 'set-reminder'>
+              <Label>Set Reminder</Label>
               <input type= 'checkbox' checked= {reminder} onChange= {(e) => setReminder(e.currentTarget.checked)} />
-          </div>
-        <input type="submit" value= 'Add Todo' />
+          </FormControl>
+        <Submit />
 
-      </form>
+      </Form>
   )
 }
 
